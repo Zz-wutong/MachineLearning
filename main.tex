@@ -1,0 +1,61 @@
+\documentclass[UTF8,12pt,a4paper]{ctexrep}
+
+% ========== 基础宏包 ==========
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+
+% ========== 页面设置 ==========
+\geometry{margin=2.5cm}
+
+% ========== 代码格式 ==========
+\lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{gray!8},
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false
+}
+
+% ========== 文档信息 ==========
+\title{Python 与机器学习学习笔记}
+\author{梧桐}
+
+\begin{document}
+
+% ===== 封面：不显示页码 =====
+\hypersetup{pageanchor=false}
+\maketitle
+
+% ===== 目录：罗马数字页码 =====
+\clearpage
+\pagenumbering{Roman}
+\hypersetup{pageanchor=true}
+\tableofcontents
+
+% ===== 正文：阿拉伯数字页码 =====
+\clearpage
+\pagenumbering{arabic}
+
+% ===== 正文章节 =====
+\include{chapters/chapter01_git}
+\include{chapters/chapter02_markdown_latex}
+\include{chapters/chapter03_python}
+
+\end{document}
+
+% 第一章 Git 与 GitHub
+\include{chapters/chapter01_git}
+
+% 第二章 Markdown 与 LaTeX
+\include{chapters/chapter02_markdown_latex}
+
+% 第三章 Python 编程基础
+\include{chapters/chapter03_python}
+
+\end{document}

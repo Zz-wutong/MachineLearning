@@ -1,0 +1,101 @@
+
+{
+    // ==========================================
+    // 1. LaTeX 编译
+    // ==========================================
+
+    // 保存时自动编译
+    "latex-workshop.latex.autoBuild.run": "onSave",
+
+    // 默认使用第一套编译方案
+    "latex-workshop.latex.recipe.default": "first",
+
+    // 编译输出统一存放在 build 文件夹
+    "latex-workshop.latex.outDir": "%DIR%/build",
+
+    // 编译方案
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "XeLaTeX (latexmk)",
+            "tools": ["latexmk-xelatex"]
+        },
+        {
+            "name": "PDFLaTeX (latexmk)",
+            "tools": ["latexmk-pdflatex"]
+        }
+    ],
+
+    // 编译工具
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk-xelatex",
+            "command": "latexmk",
+            "args": [
+                "-xelatex",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "latexmk-pdflatex",
+            "command": "latexmk",
+            "args": [
+                "-pdf",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ]
+        }
+    ],
+
+    // ==========================================
+    // 2. PDF 预览与双向定位
+    // ==========================================
+
+    // 在 VS Code 内部预览 PDF
+    "latex-workshop.view.pdf.viewer": "tab",
+
+    // PDF 双击定位到对应 LaTeX 源码
+    "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+
+    // 正向定位时高亮 PDF 对应区域
+    "latex-workshop.synctex.synctexjs.enabled": true,
+
+    // ==========================================
+    // 3. 辅助文件管理
+    // ==========================================
+
+    // 不自动清理辅助文件，保留 SyncTeX 和增量编译信息
+    "latex-workshop.latex.autoClean.run": "never",
+
+    // ==========================================
+    // 4. 编辑体验
+    // ==========================================
+
+    // 保存时删除行尾多余空格
+    "files.trimTrailingWhitespace": true,
+
+    // 显示编辑器行号
+    "editor.lineNumbers": "on",
+
+    // 自动换行，方便编辑长段落
+    "editor.wordWrap": "on",
+
+    // 自动补全括号
+    "editor.autoClosingBrackets": "always",
+
+    // 显示当前光标所在行
+    "editor.renderLineHighlight": "line",
+
+    // LaTeX 文件使用 4 空格缩进
+    "[latex]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.wordWrap": "on"
+    }
+}

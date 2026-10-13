@@ -1,0 +1,1390 @@
+
+
+% ============================================================
+
+% 第一章：Git 与 GitHub
+
+% 文件：chapters/chapter01_git.tex
+
+%
+
+% 本章学习目标：
+
+% 1. 理解 Git 与 GitHub 的区别
+
+% 2. 掌握 Git 安装、配置及仓库克隆
+
+% 3. 掌握 add、commit、push、pull 等核心命令
+
+% 4. 学会查看修改、版本恢复及忽略文件
+
+% 5. 为后续 Python 与机器学习项目建立版本管理基础
+
+%
+
+% 注意：
+
+% 本文件是章节文件，由 main.tex 通过 \include{} 引入。
+
+% 不要在此添加 documentclass 或 document 环境。
+
+% ============================================================
+
+
+
+
+
+% ============================================================
+
+% 1.1 Git 与 GitHub 基础概念
+
+% ============================================================
+
+
+
+\chapter{Git 与 GitHub}
+
+\label{chap:git_github}
+
+
+
+\section{Git 基础概念}
+
+
+
+\subsection{什么是 Git}
+
+
+
+Git 是一种分布式版本控制系统
+
+（Distributed Version Control System），
+
+主要用于记录文件的修改历史、管理不同版本，
+
+以及支持多人协作开发。
+
+
+
+在 Python 编程与机器学习研究中，Git 可以用于：
+
+
+
+\begin{itemize}
+
+    \item 保存 Python 程序的历史版本；
+
+    \item 比较不同算法实现之间的代码差异；
+
+    \item 在程序修改出错时恢复稳定版本；
+
+    \item 管理实验脚本、配置文件和研究代码；
+
+    \item 与 GitHub、Gitee 等平台进行远程同步。
+
+\end{itemize}
+
+
+
+\subsection{Git 与 GitHub 的区别}
+
+
+
+Git 是本地版本控制工具，
+
+GitHub 是基于 Git 的远程代码托管平台。
+
+
+
+\begin{center}
+
+\begin{tabular}{ll}
+
+\hline
+
+工具 & 主要功能 \\
+
+\hline
+
+Git & 本地代码版本管理 \\
+
+GitHub & 远程仓库托管与团队协作 \\
+
+Gitee & 远程仓库托管与团队协作 \\
+
+\hline
+
+\end{tabular}
+
+\end{center}
+
+
+
+\subsection{Git 的基本工作流程}
+
+
+
+Git 的工作流程通常包含四个部分：
+
+
+
+\begin{enumerate}
+
+    \item 工作区（Working Directory）；
+
+    \item 暂存区（Staging Area）；
+
+    \item 本地仓库（Local Repository）；
+
+    \item 远程仓库（Remote Repository）。
+
+\end{enumerate}
+
+
+
+其核心命令为：
+
+
+
+\begin{lstlisting}
+
+git add
+
+git commit
+
+git push
+
+\end{lstlisting}
+
+
+
+% 命令解释：
+
+% git add    ：将修改加入暂存区
+
+% git commit ：将暂存区修改保存为本地提交
+
+% git push   ：将本地提交上传至远程仓库
+
+
+
+需要注意，\texttt{git commit} 仅创建本地提交，
+
+并不意味着代码已经上传到 GitHub。
+
+
+
+
+
+% ============================================================
+
+% 1.2 Git 安装与配置
+
+% ============================================================
+
+
+
+\section{Git 安装与配置}
+
+
+
+\subsection{检查 Git 是否安装}
+
+
+
+在 Git Bash 或 VS Code 终端输入：
+
+
+
+\begin{lstlisting}
+
+git --version
+
+\end{lstlisting}
+
+
+
+作用：查看 Git 的安装版本。
+
+
+
+如果终端能够正常显示版本号，
+
+说明 Git 已安装并可以使用。
+
+
+
+\subsection{配置用户名}
+
+
+
+\begin{lstlisting}
+
+git config --global user.name "Your Name"
+
+\end{lstlisting}
+
+
+
+% --global 表示用户级配置
+
+% user.name 是提交记录中的作者名称
+
+% 该名称不必与 GitHub 用户名完全一致
+
+
+
+\subsection{配置邮箱}
+
+
+
+\begin{lstlisting}
+
+git config --global user.email "your-email@example.com"
+
+\end{lstlisting}
+
+
+
+% user.email 用于标识 Git 提交作者
+
+% 建议使用 GitHub 账户关联的邮箱
+
+% 也可以使用 GitHub 提供的隐私保护邮箱
+
+
+
+\subsection{查看 Git 配置}
+
+
+
+查看用户名：
+
+
+
+\begin{lstlisting}
+
+git config --global user.name
+
+\end{lstlisting}
+
+
+
+查看邮箱：
+
+
+
+\begin{lstlisting}
+
+git config --global user.email
+
+\end{lstlisting}
+
+
+
+查看全部有效配置：
+
+
+
+\begin{lstlisting}
+
+git config --list
+
+\end{lstlisting}
+
+
+
+\subsection{设置默认分支}
+
+
+
+\begin{lstlisting}
+
+git config --global init.defaultBranch main
+
+\end{lstlisting}
+
+
+
+% main 是常见的默认分支名称
+
+% 该设置仅影响后续 git init 创建的新仓库
+
+% 不会自动修改已有仓库的分支名称
+
+
+
+
+
+% ============================================================
+
+% 1.3 GitHub 仓库创建与克隆
+
+% ============================================================
+
+
+
+\section{GitHub 仓库管理}
+
+
+
+\subsection{创建 GitHub 仓库}
+
+
+
+在 GitHub 网站中选择 New Repository，
+
+填写仓库名称及相关信息。
+
+
+
+常见选项包括：
+
+
+
+\begin{itemize}
+
+    \item Repository name：仓库名称；
+
+    \item Description：仓库描述；
+
+    \item Public：公开仓库；
+
+    \item Private：私有仓库；
+
+    \item README：项目说明文件。
+
+\end{itemize}
+
+
+
+\subsection{切换工作目录}
+
+
+
+在 Git Bash 中切换到 D 盘指定目录：
+
+
+
+\begin{lstlisting}
+
+cd /d/GitHub
+
+\end{lstlisting}
+
+
+
+查看当前工作目录：
+
+
+
+\begin{lstlisting}
+
+pwd
+
+\end{lstlisting}
+
+
+
+查看目录中的文件：
+
+
+
+\begin{lstlisting}
+
+ls
+
+\end{lstlisting}
+
+
+
+% Git Bash 使用类似 Linux 的路径格式
+
+% Windows 的 D:\GitHub 对应 /d/GitHub
+
+
+
+\subsection{克隆远程仓库}
+
+
+
+命令格式：
+
+
+
+\begin{lstlisting}
+
+git clone <repository-url>
+
+\end{lstlisting}
+
+
+
+实际示例：
+
+
+
+\begin{lstlisting}
+
+git clone https://github.com/Zz-wutong/my-python-learning.git
+
+\end{lstlisting}
+
+
+
+作用：将远程仓库下载到本地，
+
+并建立与 GitHub 仓库的关联。
+
+
+
+\subsection{使用临时代理克隆}
+
+
+
+如果 GitHub 网络连接失败，
+
+且本机已经配置了 HTTP 代理，
+
+可以使用：
+
+
+
+\begin{lstlisting}
+
+git -c http.proxy=http://127.0.0.1:7897 clone https://github.com/Zz-wutong/my-python-learning.git
+
+\end{lstlisting}
+
+
+
+% -c 表示临时设置 Git 参数
+
+% http.proxy 指定本次命令使用的代理
+
+% 127.0.0.1 表示本机
+
+% 7897 是示例代理端口，应根据实际情况调整
+
+% 该命令不会修改全局 Git 代理配置
+
+
+
+\subsection{进入本地仓库}
+
+
+
+\begin{lstlisting}
+
+cd my-python-learning
+
+\end{lstlisting}
+
+
+
+\subsection{查看远程仓库地址}
+
+
+
+\begin{lstlisting}
+
+git remote -v
+
+\end{lstlisting}
+
+
+
+% origin 通常是克隆仓库时自动创建的远程名称
+
+% -v 表示显示远程仓库的详细地址
+
+
+
+
+
+% ============================================================
+
+% 1.4 Git 本地版本管理
+
+% ============================================================
+
+
+
+\section{Git 本地版本管理}
+
+
+
+\subsection{查看仓库状态}
+
+
+
+\begin{lstlisting}
+
+git status
+
+\end{lstlisting}
+
+
+
+该命令用于检查当前分支、
+
+已修改文件、暂存文件和未跟踪文件。
+
+
+
+常见状态说明：
+
+
+
+\begin{itemize}
+
+    \item \texttt{modified}：文件已被修改；
+
+    \item \texttt{untracked}：文件尚未被 Git 跟踪；
+
+    \item \texttt{Changes to be committed}：
+
+          文件已经加入暂存区；
+
+    \item \texttt{working tree clean}：
+
+          工作区没有待提交修改。
+
+\end{itemize}
+
+
+
+\subsection{添加指定文件到暂存区}
+
+
+
+\begin{lstlisting}
+
+git add code/hello.py
+
+\end{lstlisting}
+
+
+
+作用：将指定文件的当前修改加入暂存区。
+
+
+
+% 推荐初学阶段优先使用指定文件路径
+
+% 避免意外提交其他文件
+
+
+
+\subsection{添加当前目录的全部修改}
+
+
+
+\begin{lstlisting}
+
+git add .
+
+\end{lstlisting}
+
+
+
+作用：暂存当前目录及子目录中的新增、
+
+修改和删除记录。
+
+
+
+\textbf{注意：}
+
+使用该命令前，应检查是否存在
+
+不需要提交的配置文件或实验数据。
+
+
+
+\subsection{取消暂存}
+
+
+
+\begin{lstlisting}
+
+git restore --staged code/hello.py
+
+\end{lstlisting}
+
+
+
+作用：将指定文件从暂存区移出，
+
+但保留工作区中的修改。
+
+
+
+\subsection{查看未暂存修改}
+
+
+
+\begin{lstlisting}
+
+git diff
+
+\end{lstlisting}
+
+
+
+作用：比较工作区与暂存区之间的差异。
+
+
+
+\subsection{查看已暂存修改}
+
+
+
+\begin{lstlisting}
+
+git diff --staged
+
+\end{lstlisting}
+
+
+
+作用：检查下一次提交将包含哪些修改。
+
+
+
+
+
+% ============================================================
+
+% 1.5 Git Commit：创建本地提交
+
+% ============================================================
+
+
+
+\section{Git Commit：创建本地提交}
+
+
+
+\subsection{创建提交}
+
+
+
+\begin{lstlisting}
+
+git commit -m "Update Python example"
+
+\end{lstlisting}
+
+
+
+% git commit 创建本地版本记录
+
+% -m 表示直接指定提交说明
+
+% 引号内是本次提交的描述
+
+
+
+例如，新增试件体积计算代码后：
+
+
+
+\begin{lstlisting}
+
+git commit -m "Add specimen volume calculation"
+
+\end{lstlisting}
+
+
+
+\subsection{查看提交历史}
+
+
+
+\begin{lstlisting}
+
+git log
+
+\end{lstlisting}
+
+
+
+作用：查看提交时间、作者、Commit ID
+
+及提交说明。
+
+
+
+\subsection{简洁显示提交历史}
+
+
+
+\begin{lstlisting}
+
+git log --oneline
+
+\end{lstlisting}
+
+
+
+% --oneline 将每个提交压缩显示为一行
+
+% 适合快速浏览版本历史
+
+
+
+\subsection{查看某次提交的详细内容}
+
+
+
+\begin{lstlisting}
+
+git show <commit-id>
+
+\end{lstlisting}
+
+
+
+作用：查看指定提交引入的代码修改。
+
+
+
+
+
+% ============================================================
+
+% 1.6 Git Push：上传代码
+
+% ============================================================
+
+
+
+\section{Git Push：上传代码}
+
+
+
+\subsection{普通上传}
+
+
+
+\begin{lstlisting}
+
+git push origin main
+
+\end{lstlisting}
+
+
+
+其中：
+
+
+
+\begin{itemize}
+
+    \item \texttt{push}：上传本地提交；
+
+    \item \texttt{origin}：远程仓库名称；
+
+    \item \texttt{main}：目标分支。
+
+\end{itemize}
+
+
+
+\subsection{使用临时代理上传}
+
+
+
+\begin{lstlisting}
+
+git -c http.proxy=http://127.0.0.1:7897 push origin main
+
+\end{lstlisting}
+
+
+
+% 此代理只对当前 push 命令有效
+
+% 不改变系统环境变量
+
+% 不修改 Git 全局代理设置
+
+
+
+\subsection{检查上传结果}
+
+
+
+上传完成后，可以登录 GitHub，
+
+进入对应仓库检查文件内容和提交记录。
+
+
+
+也可以再次执行：
+
+
+
+\begin{lstlisting}
+
+git status
+
+\end{lstlisting}
+
+
+
+注意：工作区干净不一定代表
+
+本地提交已经成功上传，
+
+仍需确认远程分支同步状态。
+
+
+
+
+
+% ============================================================
+
+% 1.7 Git Pull：获取远程更新
+
+% ============================================================
+
+
+
+\section{Git Pull：获取远程更新}
+
+
+
+\subsection{拉取远程更新}
+
+
+
+\begin{lstlisting}
+
+git pull origin main
+
+\end{lstlisting}
+
+
+
+作用：获取远程分支的新提交，
+
+并尝试整合到当前本地分支。
+
+
+
+\subsection{使用临时代理拉取}
+
+
+
+\begin{lstlisting}
+
+git -c http.proxy=http://127.0.0.1:7897 pull origin main
+
+\end{lstlisting}
+
+
+
+\subsection{查看分支}
+
+
+
+查看本地分支：
+
+
+
+\begin{lstlisting}
+
+git branch
+
+\end{lstlisting}
+
+
+
+查看远程分支：
+
+
+
+\begin{lstlisting}
+
+git branch -r
+
+\end{lstlisting}
+
+
+
+查看全部分支：
+
+
+
+\begin{lstlisting}
+
+git branch -a
+
+\end{lstlisting}
+
+
+
+
+
+% ============================================================
+
+% 1.8 Git 版本恢复
+
+% ============================================================
+
+
+
+\section{Git 版本恢复}
+
+
+
+\subsection{恢复未暂存的修改}
+
+
+
+\begin{lstlisting}
+
+git restore code/hello.py
+
+\end{lstlisting}
+
+
+
+作用：将工作区中的文件恢复为暂存区版本。
+
+
+
+\textbf{警告：}
+
+该操作会丢弃文件中尚未暂存的修改，
+
+使用前应确认不再需要这些内容。
+
+
+
+\subsection{撤销历史提交}
+
+
+
+\begin{lstlisting}
+
+git revert <commit-id>
+
+\end{lstlisting}
+
+
+
+作用：创建一个新的提交，
+
+用于撤销指定提交带来的修改。
+
+
+
+对于已经上传到 GitHub 的历史提交，
+
+通常优先考虑使用 \texttt{git revert}。
+
+
+
+
+
+% ============================================================
+
+% 1.9 .gitignore 文件
+
+% ============================================================
+
+
+
+\section{Git 忽略文件}
+
+
+
+\subsection{.gitignore 的作用}
+
+
+
+\texttt{.gitignore} 用于指定不需要 Git
+
+跟踪的文件或文件夹。
+
+
+
+例如，Python 项目可以忽略：
+
+
+
+\begin{lstlisting}
+
+__pycache__/
+
+*.pyc
+
+.ipynb_checkpoints/
+
+.venv/
+
+\end{lstlisting}
+
+
+
+如果不希望提交 VS Code 的本地配置，
+
+还可以添加：
+
+
+
+\begin{lstlisting}
+
+.vscode/
+
+\end{lstlisting}
+
+
+
+% .gitignore 不会自动停止跟踪已经提交的文件
+
+% 已跟踪文件需要另行从 Git 索引中移除
+
+
+
+
+
+% ============================================================
+
+% 1.10 完整操作实例
+
+% ============================================================
+
+
+
+\section{Git 完整操作实例}
+
+
+
+假设在 VS Code 中修改了 Python 文件：
+
+
+
+\texttt{code/hello.py}
+
+
+
+例如新增：
+
+
+
+\begin{lstlisting}[language=Python]
+
+length = 400
+
+width = 50
+
+thickness = 0.5
+
+
+
+volume = length * width * thickness
+
+
+
+print("Specimen volume:", volume, "mm^3")
+
+\end{lstlisting}
+
+
+
+对应的 Git 操作如下：
+
+
+
+\begin{lstlisting}
+
+# Step 1: Check status
+
+git status
+
+
+
+# Step 2: Stage changes
+
+git add code/hello.py
+
+
+
+# Step 3: Review staged changes
+
+git diff --staged
+
+
+
+# Step 4: Commit locally
+
+git commit -m "Add volume calculation"
+
+
+
+# Step 5: Push to GitHub
+
+git push origin main
+
+\end{lstlisting}
+
+
+
+需要临时代理时：
+
+
+
+\begin{lstlisting}
+
+git -c http.proxy=http://127.0.0.1:7897 push origin main
+
+\end{lstlisting}
+
+
+
+
+
+% ============================================================
+
+% 1.11 Git 常用命令速查
+
+% ============================================================
+
+
+
+\section{Git 常用命令速查}
+
+
+
+\begin{center}
+
+\small
+
+\begin{tabular}{ll}
+
+\hline
+
+命令 & 功能 \\
+
+\hline
+
+\texttt{git --version} & 查看版本 \\
+
+\texttt{git status} & 查看仓库状态 \\
+
+\texttt{git add} & 暂存修改 \\
+
+\texttt{git commit} & 创建本地提交 \\
+
+\texttt{git push} & 上传提交 \\
+
+\texttt{git pull} & 拉取远程更新 \\
+
+\texttt{git diff} & 查看修改差异 \\
+
+\texttt{git log} & 查看提交历史 \\
+
+\texttt{git restore} & 恢复文件 \\
+
+\texttt{git revert} & 撤销历史提交 \\
+
+\texttt{git remote -v} & 查看远程地址 \\
+
+\texttt{git branch} & 查看分支 \\
+
+\hline
+
+\end{tabular}
+
+\end{center}
+
+
+
+
+
+
+% ============================================================
+% 1.12 分支创建、切换与合并（第九课）
+% ============================================================
+\section{Git 分支管理}
+\subsection{分支的作用}
+分支（Branch）用于在不直接改变主分支的情况下开发新功能。\texttt{main} 通常保存稳定版本，\texttt{feature/...} 用于独立开发。
+\subsection{创建并切换分支}
+\begin{lstlisting}
+git branch
+# Create and switch to a feature branch
+git switch -c feature/mass-calculation
+# Confirm current branch
+git branch
+\end{lstlisting}
+\subsection{在功能分支提交代码}
+例如为试件添加质量计算：
+\begin{lstlisting}[language=Python]
+# density: g/cm^3, volume: mm^3
+density = 6.45
+mass = volume / 1000 * density
+print("Specimen mass:", mass, "g")
+\end{lstlisting}
+\begin{lstlisting}
+git add code/hello.py
+git commit -m "Add specimen mass calculation"
+\end{lstlisting}
+\subsection{合并并推送主分支}
+\begin{lstlisting}
+git switch main
+git merge feature/mass-calculation
+git branch -d feature/mass-calculation
+git -c http.proxy=http://127.0.0.1:7897 push origin main
+\end{lstlisting}
+若主分支在分支创建后没有新的独立提交，Git 通常可以执行快进合并（Fast-forward）。出现冲突时应检查冲突文件，手动解决并验证后再完成合并。
+
+% ============================================================
+% 1.13 GitHub Pull Request（第十课）
+% ============================================================
+\section{Pull Request 与代码审查}
+\subsection{Pull Request 的作用}
+Pull Request（PR）是向目标分支提出合并修改的请求，提供代码差异查看、评论、检查与审查机制。PR 与 \texttt{git pull} 不是同一个操作。
+\subsection{推送功能分支}
+\begin{lstlisting}
+git switch main
+git -c http.proxy=http://127.0.0.1:7897 pull --ff-only origin main
+git switch -c feature/section-area
+\end{lstlisting}
+修改 \texttt{code/hello.py}：
+\begin{lstlisting}[language=Python]
+# Rectangular cross-sectional area in mm^2
+cross_sectional_area = width * thickness
+print("Cross-sectional area:", cross_sectional_area, "mm^2")
+\end{lstlisting}
+\begin{lstlisting}
+git add code/hello.py
+git commit -m "Add cross-sectional area calculation"
+git -c http.proxy=http://127.0.0.1:7897 push -u origin feature/section-area
+\end{lstlisting}
+\subsection{GitHub 网页创建 PR}
+进入仓库，点击 \textbf{Compare \& pull request}，或依次点击 \textbf{Pull requests}、\textbf{New pull request}。选择 \texttt{base: main} 和 \texttt{compare: feature/section-area}，填写标题、描述后创建 PR。
+\subsection{审查与合并}
+在 \textbf{Files changed} 检查代码差异，确认修改范围、公式、单位和敏感信息。审查通过后点击 \textbf{Merge pull request}，再确认合并。网页合并后，需要同步本地：
+\begin{lstlisting}
+git switch main
+git -c http.proxy=http://127.0.0.1:7897 pull --ff-only origin main
+git branch -d feature/section-area
+\end{lstlisting}
+
+% ============================================================
+% 1.14 Jupyter Notebook 项目管理（第十一课）
+% ============================================================
+\section{Jupyter Notebook 与科研项目管理}
+\subsection{Python 脚本与 Notebook 的区别}
+\texttt{.py} 适合可复用的算法与程序，\texttt{.ipynb} 适合交互式计算、Markdown 说明、公式与可视化。Notebook 文件还可能保存运行输出和执行计数，因此每次运行后 Git 差异可能较大。
+\subsection{科研仓库目录组织}
+\begin{lstlisting}
+my-python-learning/
+  code/               # Python source code
+  notebooks/          # Jupyter notebooks
+  data/               # Small, shareable datasets
+  results/            # Selected outputs
+  README.md
+  .gitignore
+\end{lstlisting}
+\subsection{Notebook 中的科研计算示例}
+在 \texttt{notebooks/01\_python\_basics.ipynb} 中新建代码单元：
+\begin{lstlisting}[language=Python]
+import numpy as np
+import matplotlib.pyplot as plt
+length, width = 400, 50
+thicknesses = np.array([0.3, 0.4, 0.5, 0.6, 0.7])
+volumes = length * width * thicknesses
+plt.plot(thicknesses, volumes, "o-")
+plt.xlabel("Thickness (mm)")
+plt.ylabel("Volume (mm^3)")
+plt.grid(True)
+plt.show()
+\end{lstlisting}
+\subsection{提交 Notebook 前的检查}
+建议清除不必要的运行输出，检查文件是否包含本地路径、令牌或敏感数据。只添加需要上传的 Notebook，避免直接执行 \texttt{git add .} 误提交其他文件。
+\begin{lstlisting}
+git status
+git add notebooks/01_python_basics.ipynb
+git diff --staged --stat
+git commit -m "Add first scientific computing notebook"
+git -c http.proxy=http://127.0.0.1:7897 push origin main
+\end{lstlisting}
+\subsection{科研项目可复现性}
+建议记录代码版本、数据来源、Python 环境与依赖库。大型数据和训练模型应根据大小与保密要求采用独立存储或 Git LFS，不应直接将涉密数据上传到 GitHub。
+
+% ============================================================
+
+% 1.15 本章总结
+
+% ============================================================
+
+
+
+\section{本章总结}
+
+
+
+Git 的核心操作流程为：
+
+
+
+\begin{center}
+
+\texttt{git status}
+
+$\longrightarrow$
+
+\texttt{git add}
+
+$\longrightarrow$
+
+\texttt{git commit}
+
+$\longrightarrow$
+
+\texttt{git push}
+
+\end{center}
+
+
+
+本章介绍了 Git 的基础概念、
+
+安装配置、仓库克隆、本地提交、
+
+远程同步、版本恢复和文件忽略机制。
+
+
+
+在后续 Python 与机器学习学习中，
+
+可以利用 Git 管理算法实现、
+
+实验脚本及配置文件，
+
+并通过 GitHub 或 Gitee 保存和共享代码。
+
+
+
+建议养成以下习惯：
+
+
+
+\begin{enumerate}
+
+    \item 修改代码前检查仓库状态；
+
+    \item 提交前检查代码差异；
+
+    \item 每次提交使用明确的说明；
+
+    \item 定期同步远程仓库；
+
+    \item 不上传密码、访问令牌及敏感数据。
+
+\end{enumerate}
